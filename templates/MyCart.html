@@ -1,0 +1,282 @@
+
+<html lang="en">
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/static/js/addtocart.js"></script>
+  <title>My Cart</title>
+  <style>
+      .modal{
+          max-height: 800px !important;
+          top: 4% !important;
+      }
+      .modal .modal-footer{
+          height: 2px !important;
+          margin-bottom: -45px !important;
+      }
+  </style>
+</head>
+<header>
+    {% include 'AppBar.html' %}
+</header>
+<body>
+<input type="hidden" value="{{useraddress}}" id="useraddress">
+<div class="row" style="margin-top: 25px;" >
+
+        <div class="col s7" style=" margin-top: 10px; margin-left: 25px; background: rgba(222,221,221,0.3);">
+            <div class="row">
+                <span style="color: black; font-weight: bold;font-size: 20px;margin-left: 15px;">SHOPPING BASKET</span>
+                <span style="font-size:20px;font-weight: bold;">({{ totalproducts }} items)</span>
+            </div>
+            {% for row in data %}
+            <div class="row" style="margin-top: 15px;">
+                <div class="col s6">
+                    <img src="/static/inputicons/{{ row.producticon }}" width="50%">
+                </div>
+                <div class="col s6">
+
+                    <div style="color: black;font-weight: bold;font-size: 20px;">
+                        {{ row.productname }}
+                    </div>
+
+
+                    <div style="display: flex;flex-direction: row;justify-content: space-between">
+                        <div style="color: #30336b; font-weight: bold;">
+                            Rs. {{ row.offerprice }} <s style="color: red;font-size: 13px;">Rs.{{ row.price }}</s>
+                            <span style="color: green;font-weight: bold;"> You Save Rs. {{row.save}}</span>
+                        </div>
+                        <div style="display: flex;justify-content:flex-end;color: black;font-weight: bold;font-size: 20px;">
+                            Rs. {{ row.productprice }}
+                        </div>
+                    </div>
+
+                    <div style="color: #0e559a;font-weight: bold;">Sold By MedAssist<span style="font-size: 13px">.com</span></div>
+                    <div style="color: #30336b;">
+                        <span id="button" style="display: flex;justify-content: flex-end;">
+<!--                            <div   class="btn-floating btn-small" style="background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);"><i class="material-icons" id="minus{{row.productid}}" product="{{ row }}" productid="{{ row.productid }}">remove</i></div>-->
+                            <span style="font-size: 15px;font-weight:bolder;">QTY:</span>
+                            <span id="{{row.productid}}" style="margin-left: 10px;margin-right: 10px;">{{ row.qty }}</span>
+
+<!--                            <div  class="btn-floating btn-small" style="background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);"><i class="material-icons" id="plus{{row.productid}}" product="{{ row }}" productid="{{ row.productid }}">add</i></div>-->
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+
+    <div class="col s4" style=" margin-top: 10px; margin-left: 15px; background: rgba(222,221,221,0.3);">
+            <div style="padding: 3px;font-size: 20px; font-weight: bold;color: #025902;">PAYMENT DETAILS</div>
+            <div style="display: flex;align-items: center;justify-content: space-between;margin-top: 15px;"><span>Actual MRP Total </span><span>Rs. {{totalprice}}</span></div>
+            <hr>
+            <div style="display: flex;align-items: center;justify-content: space-between;margin-top: 15px;"><span>Product Discount</span><span>-Rs. {{totalsavings}}</span></div>
+            <hr>
+            <div style="display: flex;align-items: center;justify-content: space-between;margin-top: 15px;margin-bottom: 15px;font-weight: bold;"><span>Total Amount</span><span>Rs. {{totalamount}}</span></div>
+            <div style="color: green; font-weight: bold;">You Save Rs. {{totalsavings}}</div>
+            <div style="display: flex;justify-content: center;margin-bottom: 10px;margin-top: 10px; ">
+                <button  class="btn wave light-wave" style=" background:linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);font-weight: bold;font-size: 100%; width: 60%;" id="placeorder">Place Order</button>
+            </div>
+            <div style="display: flex;justify-content: center;margin-bottom: 10px;margin-top: 10px;padding: 5px" id="makepayment">
+                <span style="width: 50%"><button  class="btn wave light-wave" mobileno="{{useraddress.mobileno}}" address1="{{useraddress.address1}}" emailid="{{useraddress.emailid}}" address2="{{useraddress.address2}}" city="{{useraddress.city}}" state="{{useraddress.state}}" landmark="{{useraddress.landmark}}" zipcode="{{useraddress.zipcode}}" style="display: flex;background:linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);font-weight: bold;font-size: 90%; width: 75%;" id="editaddress"><i class="material-icons prefix" style="color: #FFFFFF;">create</i>&nbsp;&nbsp;YOUR ADDRESS</button></span><span style="width: 50%"><button  class="btn wave light-wave" style=" background:linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);font-weight: bold;font-size: 100%; width: 103%;" id="proceed">PROCEED</button></span>
+            </div>
+    </div>
+
+</div>
+
+<!-- Modal Structure Address-->
+<div id="modal4" class="modal" style="max-height: 650px;overflow: hidden">
+    <div class="modal-footer">
+      <div class="modal-close"><i class="material-icons">close</i></div>
+    </div>
+    <div class="modal-content" >
+      <div class="maincontainer" style="max-height: 650px;overflow: hidden;margin-bottom: 20px">
+        <div class="box" style="max-height: 680px;overflow: hidden">
+            <div class="row">
+
+                <div class="col s6" style="display:flex;align-items:center;justify-content:center;margin-top: 100px">
+                    <img src="/static/images/address.jpg" style="width: 107%; height: 533px;">
+                </div>
+
+                <div class="col s6">
+
+                    <div class="row">
+                        <div class="col s12" style="margin-top: 30px; margin-bottom: 30px;">
+                            <span style="font-size: 25px; font-weight: bold;display: flex;justify-content: center;font-family: cursive;">Your Address</span>
+                            <div style="font-size: 20px;display: flex;justify-content: center;font-family: cursive;">Enter your delivery address...</div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s6" >
+                            <i class="material-icons prefix">local_phone</i>
+                            <input required  value=" " id="m4mobileno" name="mobileno" type="text" class="validate">
+                            <label for="m4mobileno">Mobile No.</label>
+                        </div>
+                        <div class="input-field col s6" >
+                            <i class="material-icons prefix">email</i>
+                            <input required  value=" "  id="m4emailid" name="emailid" type="text" class="validate">
+                            <label for="m4emailid">Email</label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s12" >
+                            <i class="material-icons prefix">list</i>
+                            <input required id="addresslineone" name="addresslineone" type="text" class="validate">
+                            <label for="addresslineone">Address One</label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s12" >
+                            <i class="material-icons prefix">list</i>
+                            <input required id="addresslinetwo" name="addresslinetwo" type="text" class="validate">
+                            <label for="addresslinetwo">Address two</label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s6" >
+                            <i class="material-icons prefix">home</i>
+                            <input required id="city" name="city" type="text" class="validate">
+                            <label for="city">City</label>
+                        </div>
+                        <div class="input-field col s6" >
+                            <i class="material-icons prefix">home</i>
+                            <input required id="state" name="state" type="text" class="validate">
+                            <label for="state">state</label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s6" >
+                            <i class="material-icons prefix">home</i>
+                            <input required id="landmark" name="landmark" type="text" class="validate">
+                            <label for="landmark">Landmark</label>
+                        </div>
+                        <div class="input-field col s6" >
+                            <i class="material-icons prefix">home</i>
+                            <input required id="zipcode" name="zipcode" type="text" class="validate">
+                            <label for="zipcode">Zipcode</label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -20px">
+                        <div class="col s12">
+                            <button class="btn" type="button" id="saveaddress" style="width: 100%;background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);" name="action">ADD ADDRESS</button>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: -20px">
+                        <div class="col s12">
+                            <button class="btn" type="button" id="updateaddress" style="width: 100%;background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);" name="action">EDIT ADDRESS</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+</div>
+<!-------------------------->
+
+</body>
+{% include 'Footer.html' %}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // Check Login...................
+    $(document).ready(function (){
+
+        if($('#useraddress').val()!='None'){
+                $('#placeorder').hide()
+                $('#makepayment').show()
+           }
+        else{
+           $('#makepayment').hide()
+        }
+
+        $('.modal').modal();
+        $('#modal4').modal('close')
+        $('#updateaddress').hide()
+
+        $('#placeorder').click(function (){
+            $.getJSON('/checklogin',function (data){
+                if(data.result){
+                        $('#modal4').modal('open')
+                        $('#m4mobileno').val(data.userdata.mobileno)
+                        $('#m4emailid').val(data.userdata.useremail)
+                        M.updateTextFields()
+                }
+                else{
+                    location.href='http://localhost:8000/signinandsignup/'
+                }
+            })
+        })
+
+       $('#saveaddress').click(function (){
+           $.getJSON('/useraddress',{'mobileno':$('#m4mobileno').val(),'emailid':$('#m4emailid').val(),'addresslineone':$('#addresslineone').val(),'addresslinetwo':$('#addresslinetwo').val(),'city':$('#city').val(),'state':$('#state').val(),'landmark':$('#landmark').val(),'zipcode':$('#zipcode').val()},function (data){
+               if(data.result){
+                   swal("Deliver Address Save Successfully!", "Successfully", "success");
+                   $('#placeorder').hide()
+                   $('#makepayment').show()
+                   sleep()
+               }
+               else{
+                   swal("Fail to Save Address!");
+               }
+           })
+       })
+
+
+    $('#editaddress').click(function (){
+        $('#modal4').modal('open')
+        $('#m4mobileno').val($(this).attr('mobileno'))
+        $('#m4emailid').val($(this).attr('emailid'))
+        $('#addresslineone').val($(this).attr('address1'))
+        $('#addresslinetwo').val($(this).attr('address2'))
+        $('#city').val($(this).attr('city'))
+        $('#state').val($(this).attr('state'))
+        $('#landmark').val($(this).attr('landmark'))
+        $('#zipcode').val($(this).attr('zipcode'))
+        M.updateTextFields()
+        $('#saveaddress').hide()
+        $('#updateaddress').show()
+    })
+
+    $('#updateaddress').click(function (){
+        $.getJSON('/updateuseraddress',{'mobileno':$('#m4mobileno').val(),'emailid':$('#m4emailid').val(),'address1':$('#addresslineone').val(),'address2':$('#addresslinetwo').val(),'city':$('#city').val(),'state':$('#state').val(),'landmark':$('#landmark').val(),'zipcode':$('#zipcode').val()},function (data){
+            if(data.result){
+                swal("Edit Address!", "Successfully", "success");
+                sleep()
+            }
+        })
+    })
+
+    $('#proceed').click(function (){
+        location.href='http://localhost:8000/checkout/'
+    })
+
+})
+function callurl(){
+   $('#modal4').modal('close')
+   location.href="http://localhost:8000/my_shopping_cart/"
+}
+function sleep(){
+   setInterval(callurl,1000)
+}
+    //..............................
+</script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</html>

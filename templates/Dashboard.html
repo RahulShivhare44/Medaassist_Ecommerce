@@ -1,0 +1,50 @@
+<html>
+  <head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .carousel0{
+        width: 100%;
+        height: 659px !important;
+        top: -21px !important;
+    }
+  </style>
+ </head>
+
+<body>
+{% include 'AdminAppbar.html' %}
+<!-- Carousel -->
+<div class="carousel carousel-slider carousel0">
+    <a class="carousel-item" href="#"><img src="/static/images/a1.webp" style="height: 100%;width: 100%"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/a7.webp" style="height: 100%;width: 100%"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/a3.jpg" style="height: 100%;width: 100%"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/a4.jpg" style="height: 100%;width: 100%"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/a5.jpg" style="height: 100%;width: 100%"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/a6.jpg" style="height: 100%;width: 100%"></a>
+</div>
+<!--------------------->
+</body>
+<script>
+$(document).ready(function () {
+  $('.sidenav').sidenav();
+  $('.dropdown-trigger').dropdown();
+  $('.carousel').carousel();
+  $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true,
+    });
+    setInterval(function() {
+            $('.carousel0').carousel('next');
+    }, 4000);
+});
+</script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</html>
+
+

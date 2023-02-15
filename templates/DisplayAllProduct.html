@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/static/css/DisplayAllProduct.css" >
+    <title>DisplayAll Product Panel</title>
+    <script src="/static/js/FillCategories.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('.modal').modal();
+    });
+    </script>
+    <style>
+    .modal{
+        width: 43% !important;
+        }
+    #modal1{
+        max-height: 730px;
+        top:1% !important;
+    }
+    </style>
+
+</head>
+<body>
+{% include 'AdminAppbar.html' %}
+
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="maincontainer">
+    <div class="root" style="margin-bottom: 4%;">
+        <div class="logo">
+            <span style="font-weight: bold;font-size: 28px;margin-bottom: 19px;">Product List</span>
+            <span style="width: 42%;display: flex;justify-content: flex-end;margin-right: 13px;"><a href="/productinterface"><i class="material-icons" style="color: #FFFFFF">add_box</i></a></span>
+        </div>
+
+    <table class="centered">
+        <thead>
+          <tr>
+              <th>Product Id</th>
+              <th>Category Name</th>
+              <th>Sub-Category Name</th>
+              <th>Brand Name</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Offer Price</th>
+              <th>Packing Type</th>
+              <th>Quantity</th>
+              <th>Status</th>
+              <th>Sale Status</th>
+              <th>Rating</th>
+              <th>Product Icon</th>
+              <th>Edit/Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for row in result %}
+          <tr>
+            <td>{{row.productid}}</td>
+            <td>{{row.cn}}/[{{row.categoryid}}]</td>
+            <td>{{row.sn}}/[{{row.subcategoryid}}]</td>
+            <td>{{row.bn}}/[{{row.brandid}}]</td>
+            <td>{{row.productname}}</td>
+            <td>{{row.price}}</td>
+            <td>{{row.offerprice}}</td>
+            <td>{{row.packingtype}}</td>
+            <td>{{row.qty}}</td>
+            <td>{{row.status}}</td>
+            <td>{{row.salestatus}}</td>
+            <td>{{row.rating}}</td>
+            <td><img src="/static/inputicons/{{row.producticon}}" width="40" class="imgbtn" productid="{{row.productid}}" producticon="{{row.producticon}}" ></td>
+            <td><button class="btn waves-effect waves-light btn modal-trigger editdeletebtn"  bid="{{row.brandid}}" cid="{{row.categoryid}}" sid="{{row.subcategoryid}}" productid="{{row.productid}}" productname="{{row.productname}}" status="{{row.status}}" salestatus="{{row.salestatus}}" rating="{{row.rating}}" qty="{{row.qty}}" packingtype="{{row.packingtype}}" price="{{row.price}}" offerprice="{{row.offerprice}}" type="button" name="action" style="background: whitesmoke;box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);color: black" data-target="modal1" >Edit/Delete</button></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+</form>
+
+<!--Modal For Form Data-->
+ <div id="modal1" class="modal">
+    <div class="modal-content">
+     <input id="productid" type="hidden" >
+     <div class="modal_maincontainer">
+    <div class="modal_root">
+            <div class="logo">
+                <span><img src="/static/images/logo1.png" width="75" style="margin-right: 10px;"></span><span style="margin-top: -16px;font-weight: bold;font-size: 20px">Edit Product</span>
+            </div>
+                <div class="row">
+                   <div class="input-field col s4">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="categoryname" name="categoryname">
+                        <option value="" disabled selected>Choose Category</option>
+                        </select>
+                        <label>Category Name</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="subcategoryname" name="subcategoryname">
+                        <option value="" disabled selected>Choose SubCategory</option>
+                        </select>
+                        <label>SubCategory Name</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="brandname" name="brandname">
+                        <option value="" disabled selected>Choose Brand</option>
+                        </select>
+                        <label>Brand Name</label>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s12">
+                         <i class="material-icons prefix">add_shopping_cart</i>
+                        <input name="productname" id="productname" type="text" class="validate">
+                        <label for="productname">Product Name</label>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s6">
+                         <i class="material-icons prefix">credit_card</i>
+                        <input name="price" id="price" type="text" class="validate">
+                        <label for="price">Price</label>
+                    </div>
+                   <div class="input-field col s6">
+                         <i class="material-icons prefix">credit_card</i>
+                        <input name="offerprice" id="offerprice" type="text" class="validate">
+                        <label for="offerprice">Offer Price</label>
+                    </div>
+               </div>
+               <div class="row">
+                   <div class="input-field col s6">
+                        <i class="material-icons prefix">content_paste</i>
+                        <select id="packingtype" name="packingtype">
+                            <option value="" disabled selected>Choose Packing Type</option>
+                            <option>Box</option>
+                            <option>Strip</option>
+                            <option>Sachets</option>
+                            <option>Injections</option>
+                            <option>Syrups</option>
+                        </select>
+                        <label>Packing Type</label>
+                   </div>
+                   <div class="input-field col s6">
+                         <i class="material-icons prefix">assignment</i>
+                        <input name="qty" id="qty" type="text" class="validate">
+                        <label for="qty">Quantity</label>
+                    </div>
+               </div>
+               <div class="row">
+                   <div class="input-field col s4">
+                        <i class="material-icons prefix">assessment</i>
+                        <select id="status" name="status">
+                        <option value="" disabled selected>Choose Product Status</option>
+                        <option>Top</option>
+                        <option>Trending</option>
+                        <option>Popular</option>
+                        <option>Discontinue</option>
+                        </select>
+                        <label>Status</label>
+                    </div>
+                   <div class="input-field col s4">
+                        <i class="material-icons prefix">book</i>
+                        <select id="salestatus" name="salestatus">
+                            <option value="" disabled selected>Choose Sale Status</option>
+                            <option>Continue</option>
+                            <option>Discontinue</option>
+                        </select>
+                        <label>Sale Status</label>
+                   </div>
+                   <div class="input-field col s4">
+                         <i class="material-icons prefix">assignment</i>
+                        <input name="rating" id="rating" type="text" class="validate">
+                        <label for="rating">Rating</label>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnedit" id="btnedit" type="submit">Edit
+                            <i class="material-icons right">edit</i>
+                        </button>
+                     </div>
+                    <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btndelete" id="btndelete" type="reset">Delete
+                        <i class="material-icons right">delete</i>
+                        </button>
+                    </div>
+            </div>
+      </div>
+    </div>
+</div>
+    <div class="modal-footer" style="margin-top: -33px;">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat close">Close</a>
+    </div>
+</div>
+<!----------------------------------------->
+
+<!--Modal For Picture-->
+<div id="modal2" class="modal">
+    <div class="modal-content">
+     <input id="mpic_productid" type="hidden" >
+     <div class="modal_maincontainer">
+     <div class="modal_root" style="margin: -30px">
+               <div class="input-field col s12 logo">
+                        <span><img src="/static/images/logo1.png" width="75" style="margin-right: 10px;"></span><span style="margin-top: -16px;font-weight: bold;font-size: 20px">Edit-Product Image</span>
+               </div>
+               <div class="row" style="display: flex;justify-content: center;align-items: center;">
+                   <div class="col 12">
+                       <img src="" id="mpic" width="100px">
+                   </div>
+               </div>
+               <div class="input-field col s12">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                             <span>File</span>
+                             <input type="file" name="mproducticon" id="mproducticon" multiple>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path" type="text" placeholder="Upload one or more files">
+                        </div>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s12 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnedit_pic" id="btnpic" type="submit">Edit
+                            <i class="material-icons right">edit</i>
+                        </button>
+                     </div>
+               </div>
+    </div>
+</div>
+</div>
+<div class="modal-footer" style="margin-top: 2px;">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat pic_close">Close</a>
+    </div>
+</div>
+<!----------------------------------------->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  $('#modal1').modal()
+  $('#modal2').modal()
+  $('#productname').val(' ')
+  $('#price').val(' ')
+  $('#offerprice').val(' ')
+  $('#qty').val(' ')
+  $('#rating').val(' ')
+// Form Data Manupilation.............
+ $('.editdeletebtn').click(function (){
+       $('#modal1').modal('open')
+       $('#productid').val($(this).attr('productid'))
+     // Category And Sub-Category And Brand Manupliation...............
+       $('#categoryname').val($(this).attr('cid'))
+
+       $.getJSON('/fillsubcategory',{'categoryid':$('#categoryname').val()},function (data){
+            data.result.map((item)=>{
+                $('#subcategoryname').append($('<option>').text(item.subcategoryname).val(item.subcategoryid))
+            })
+           $('select').formSelect();
+        })
+       $('#subcategoryname').val($(this).attr('sid'))
+
+      $.getJSON('/fillbrand',{'categoryid':$('#categoryname').val(),'subcategoryid':$(this).attr('sid')},function (data){
+            data.result.map((item)=>{
+                $('#brandname').append($('<option>').text(item.brandname).val(item.brandid))
+            })
+        $('select').formSelect();
+        })
+      $('#brandname').val($(this).attr('bid'))
+     //......................................................
+       $('#productname').val($(this).attr('productname'))
+       $('#offerprice').val($(this).attr('offerprice'))
+       $('#price').val($(this).attr('price'))
+       $('#packingtype').val($(this).attr('packingtype'))
+       $('#qty').val($(this).attr('qty'))
+       $('#rating').val($(this).attr('rating'))
+       $('#salestatus').val($(this).attr('salestatus'))
+       $('#status').val($(this).attr('status'))
+       $('select').formSelect();
+ })
+   $('.btnedit').click(function (){
+        // Sweet Alert...................
+        swal({
+        title: "Are you sure?",
+        text: "Do You Want to Edit",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Data Successfully Edited !!", {
+            icon: "success",
+            });
+            $.getJSON('/updateproduct',{"productid":$('#productid').val(),"categoryid":$('#categoryname').val(),"subcategoryid":$('#subcategoryname').val(),"brandid":$('#brandname').val(),"productname":$('#productname').val(),'price':$('#price').val(),'offerprice': $('#offerprice').val(),"status":$('#status').val(),"salestatus":$('#salestatus').val(),"rating":$('#rating').val(),"qty":$('#qty').val(),"packingtype":$('#packingtype').val()},function (data){
+            })
+            }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+        //............................
+    })
+
+    $('.btndelete').click(function (){
+        swal("Are you sure you want to do this?", {
+        buttons: ["Cancel", "Delete"],
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Data Successfully Edited !!", {
+            icon: "success",
+            });
+              $.getJSON('/deleteproduct',{"productid":$('#productid').val()},function (data){
+            })
+            }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+    })
+$('.close').click(function (){
+    $('#modal1').modal('close')
+    location.href="http://localhost:8000/displayallproduct/"
+})
+//........................................
+
+
+// Icon Manupilation......................
+$('.imgbtn').click(function (){
+    $('#modal2').modal('open')
+    $('#mpic_productid').val($(this).attr('productid'))
+    $('#mpic').attr('src',`/static/inputicons/${$(this).attr('producticon')}`)
+})
+$('#mproducticon').change(function (event){
+    $('#mpic').attr('src',URL.createObjectURL(event.target.files[0]))
+})
+$('.btnedit_pic').click(function (){
+    swal({
+        title: "Are you sure?",
+        text: "Do You Want to Edit This Picture",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Picture Successfully Edited !!", {
+            icon: "success",
+            });
+
+        // Ajax Use For Image Update............
+        var formData = new FormData();
+        formData.append("productid",$('#mpic_productid').val())
+        var files = $('#mproducticon')[0].files;
+        // Check file selected or not
+        if(files.length > 0 ){
+           formData.append('producticon',files[0]);
+
+           $.ajax({
+              url: '/editproductpicture',
+              type: 'post',
+              headers:{"X-CSRFToken": '{{ csrf_token }}'},
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                 if(response!=0){
+                      if (response.result) {
+                        console.log('File Edited Successfully')
+                      } else {
+                          alert('Fail To Edit the Picture')
+                      }
+                 }else{
+                    alert('file not uploaded');
+                 }
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+        //...................
+        }
+        else {
+            swal("OOPS You Cancel it!");
+            }
+      });
+
+})
+$('.pic_close').click(function (){
+    $('#modal2').modal('close')
+    location.href='http://localhost:8000/displayallproduct/'
+})
+//........................................
+
+// Side NavBar................
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+// ............................
+
+$('.dropdown-trigger').dropdown();
+</script>
+</body>
+</html>
+

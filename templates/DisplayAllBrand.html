@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/static/css/DisplayAllSubCategories.css" >
+    <title>DisplayAll Brand Panel</title>
+    <script src="/static/js/FillCategories.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('.modal').modal();
+    });
+    </script>
+    <style>
+    .modal{
+        width: 40% !important;
+        }
+    #modal1{
+        height: 63% !important;
+    }
+    </style>
+
+</head>
+<body>
+{% include 'AdminAppbar.html' %}
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="maincontainer">
+    <div class="root" style="margin-bottom: 4%;">
+        <div class="logo">
+            <span style="font-weight: bold;font-size: 28px;margin-bottom: 19px;">Brand List</span>
+            <span style="width: 42%;display: flex;justify-content: flex-end;margin-right: 13px;"><a href="/brandinterface"><i class="material-icons" style="color: #FFFFFF">add_box</i></a></span>
+        </div>
+
+    <table class="centered">
+        <thead>
+          <tr>
+              <th>Brand Id</th>
+              <th>Category Name</th>
+              <th>Sub-Category Name</th>
+              <th>Brand Name</th>
+              <th>Contact Person</th>
+              <th>Mobile Number</th>
+              <th>Status</th>
+              <th>Brand Icon</th>
+              <th>Edit/Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for row in result %}
+          <tr>
+            <td>{{row.brandid}}</td>
+            <td>{{row.cn}}/[{{row.categoryid}}]</td>
+            <td>{{row.sn}}/[{{row.subcategoryid}}]</td>
+            <td>{{row.brandname}}</td>
+            <td>{{row.contactperson}}</td>
+            <td>{{row.mobileno}}</td>
+            <td>{{row.status}}</td>
+            <td><img src="/static/inputicons/{{row.brandicon}}" width="40" class="imgbtn" brandid="{{row.brandid}}" brandicon="{{row.brandicon}}" ></td>
+            <td><button class="btn waves-effect waves-light btn modal-trigger editdeletebtn" brandid="{{row.brandid}}" cid="{{row.categoryid}}" sid="{{row.subcategoryid}}" brandname="{{row.brandname}}" contactperson="{{row.contactperson}}" mobileno="{{row.mobileno}}" status="{{row.status}}" type="button" name="action" style="background: whitesmoke;box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);color: black" data-target="modal1" >Edit/Delete</button></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+</form>
+
+<!--Modal For Form Data-->
+ <div id="modal1" class="modal">
+    <div class="modal-content">
+     <input id="brandid" type="hidden" >
+     <div class="modal_maincontainer">
+    <div class="modal_root">
+            <div class="logo">
+                <span><img src="/static/images/logo1.png" width="75" style="margin-right: 10px;"></span><span style="margin-top: -16px;font-weight: bold;font-size: 20px">Edit Brand</span>
+            </div>
+                <div class="row">
+                   <div class="input-field col s4">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="categoryname" name="categoryname">
+                        <option value="" disabled selected>Choose Category Name</option>
+                        </select>
+                        <label>Category Name</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="subcategoryname" name="subcategoryname">
+                        <option value="" disabled selected>Choose SubCategory Name</option>
+                        </select>
+                        <label>SubCategory Name</label>
+                    </div>
+                    <div class="input-field col s4">
+                         <i class="material-icons prefix">add_shopping_cart</i>
+                        <input name="brandname" id="brandname" type="text" class="validate">
+                        <label for="brandname">Brand Name</label>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s4">
+                         <i class="material-icons prefix">account_circle</i>
+                        <input name="contactperson" id="contactperson" type="text" class="validate">
+                        <label for="contactperson">Contact Person</label>
+                    </div>
+                    <div class="input-field col s4">
+                         <i class="material-icons prefix">call</i>
+                        <input name="mobileno" id="mobileno" type="text" class="validate">
+                        <label for="mobileno">Mobile Number</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">assessment</i>
+                        <select id="status" name="status">
+                        <option>Top</option>
+                        <option>Trending</option>
+                        <option>Popular</option>
+                        <option>Discontinue</option>
+                        </select>
+                        <label>Status</label>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnedit" id="btnedit" type="submit">Edit
+                            <i class="material-icons right">edit</i>
+                        </button>
+                     </div>
+                    <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btndelete" id="btndelete" type="reset">Delete
+                        <i class="material-icons right">delete</i>
+                        </button>
+                    </div>
+            </div>
+      </div>
+    </div>
+</div>
+    <div class="modal-footer" style="margin-top: -33px;">
+      <button type="button" class="modal-close waves-effect waves-green btn-flat close">Close</button>
+    </div>
+</div>
+<!----------------------------------------->
+
+<!--Modal For Picture-->
+<div id="modal2" class="modal">
+    <div class="modal-content">
+     <input id="mpic_brandid" type="hidden" >
+     <div class="modal_maincontainer">
+     <div class="modal_root" style="margin: -30px">
+               <div class="input-field col s12 logo">
+                        <span><img src="/static/images/logo1.png" width="75" style="margin-right: 10px;"></span><span style="margin-top: -16px;font-weight: bold;font-size: 20px">Edit-Brand Image</span>
+               </div>
+               <div class="row" style="display: flex;justify-content: center;align-items: center;">
+                   <div class="col 12">
+                       <img src="" id="mpic" width="100px">
+                   </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="mbrandicon" id="mbrandicon" multiple>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path" type="text" placeholder="Upload one or more files">
+                                </div>
+                            </div>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s12 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnedit_pic" id="btnpic" type="submit">Edit
+                            <i class="material-icons right">edit</i>
+                        </button>
+                     </div>
+               </div>
+    </div>
+</div>
+</div>
+<div class="modal-footer" style="margin-top: 2px;">
+    <button type="button" class="modal-close waves-effect waves-green btn-flat pic_close">Close</button>
+    </div>
+</div>
+<!----------------------------------------->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  $('#modal1').modal()
+  $('#modal2').modal()
+  $('#brandname').val(' ')
+  $('#contactperson').val(' ')
+  $('#mobileno').val(' ')
+  $('#status').val(' ')
+// Form Data Manupilation.............
+ $('.editdeletebtn').click(function (){
+       $('#modal1').modal('open')
+       $('#brandid').val($(this).attr('brandid'))
+     // Category And Sub-Category Manupliation...............
+       $('#categoryname').val($(this).attr('cid'))
+       $.getJSON('/fillsubcategory',{'categoryid':$('#categoryname').val()},function (data){
+            data.result.map((item)=>{
+                $('#subcategoryname').append($('<option>').text(item.subcategoryname).val(item.subcategoryid))
+            })
+           $('select').formSelect();
+        })
+       $('#subcategoryname').val($(this).attr('sid'))
+     //......................................................
+       $('#brandname').val($(this).attr('brandname'))
+       $('#contactperson').val($(this).attr('contactperson'))
+       $('#mobileno').val($(this).attr('mobileno'))
+       $('#status').val($(this).attr('status'))
+       $('select').formSelect();
+ })
+   $('.btnedit').click(function (){
+        // Sweet Alert...................
+        swal({
+        title: "Are you sure?",
+        text: "Do You Want to Edit",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Data Successfully Edited !!", {
+            icon: "success",
+            });
+            $.getJSON('/updatebrand',{"brandid":$('#brandid').val(),"categoryid":$('#categoryname').val(),"subcategoryid":$('#subcategoryname').val(),"brandname":$('#brandname').val(),"contactperson":$('#contactperson').val(),'mobileno':$('#mobileno').val(),"status":$('#status').val()},function (data){
+            })
+            }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+        //............................
+    })
+
+    $('.btndelete').click(function (){
+        swal("Are you sure you want to do this?", {
+        buttons: ["Cancel", "Delete"],
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Data Successfully Edited !!", {
+            icon: "success",
+            });
+              $.getJSON('/deletebrand',{"brandid":$('#brandid').val()},function (data){
+            })
+            }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+    })
+$('.close').click(function (){
+    $('#modal1').modal('close')
+    window.location.reload('http://localhost:8000/displayallbrand/')
+})
+//........................................
+
+
+// Icon Manupilation......................
+$('.imgbtn').click(function (){
+    $('#modal2').modal('open')
+    $('#mpic_brandid').val($(this).attr('brandid'))
+    $('#mpic').attr('src',`/static/inputicons/${$(this).attr('brandicon')}`)
+})
+$('#mbrandicon').change(function (event){
+    $('#mpic').attr('src',URL.createObjectURL(event.target.files[0]))
+})
+$('.btnedit_pic').click(function (){
+    swal({
+        title: "Are you sure?",
+        text: "Do You Want to Edit This Picture",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Picture Successfully Edited !!", {
+            icon: "success",
+            });
+
+        // Ajax Use For Image Update............
+        var formData = new FormData();
+        formData.append("brandid",$('#mpic_brandid').val())
+        var files = $('#mbrandicon')[0].files;
+        // Check file selected or not
+        if(files.length > 0 ){
+           formData.append('brandicon',files[0]);
+
+           $.ajax({
+              url: '/editbrandpicture',
+              type: 'post',
+              headers:{"X-CSRFToken": '{{ csrf_token }}'},
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                 if(response!=0){
+                      if (response.result) {
+                        console.log('File Edited Successfully')
+                      } else {
+                          alert('Fail To Edit the Picture')
+                      }
+                 }else{
+                    alert('file not uploaded');
+                 }
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+        //...................
+        }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+
+})
+$('.pic_close').click(function (){
+    $('#modal2').modal('close')
+    window.location.reload('http://localhost:8000/displayallbrand/')
+})
+//........................................
+
+// Side NavBar................
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+// ............................
+
+$('.dropdown-trigger').dropdown();
+</script>
+</body>
+</html>
+

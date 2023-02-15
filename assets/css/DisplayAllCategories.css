@@ -1,0 +1,72 @@
+.maincontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.root{
+    margin-top: 4%;
+    margin-bottom: 4%;
+    min-width: 65%;
+    overflow: auto;
+    height: auto;
+    box-shadow: 0px 0px  22px -9px grey;
+    padding: 10px;
+}
+.root .logo{
+    margin-top: 7px;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    background:#20bf6b !important;
+    box-shadow: 0px 0px 8px 1px grey;
+    height: 110px;
+}
+
+
+/*Modal Css*/
+.modal_maincontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal_root{
+    width: 100%;
+    height: auto;
+}
+.modal_root .logo{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: #20bf6b !important;
+    box-shadow: 0px 0px 8px 1px grey;
+    height: 110px;
+    margin-bottom: 12px;
+}
+#btnedit{
+ background: #0f9d58;
+ width:100%;
+ border-radius: 30px;
+}
+#btndelete{
+ background: red;
+ width:100%;
+ border-radius: 30px;
+}
+#btnpic{
+ background: #0f9d58;
+ width:100%;
+ border-radius: 30px;
+}
+.modal_root .btnmiddle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+

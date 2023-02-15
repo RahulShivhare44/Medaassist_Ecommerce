@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection" />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="/static/css/DisplayAllSubCategories.css" >
+    <title>DisplayAll Sub-Categories Panel</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/FillCategories.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('.modal').modal();
+    });
+    </script>
+    <style>
+    .modal{
+        width: 40% !important;
+    }
+    </style>
+</head>
+<body>
+{% include 'AdminAppbar.html' %}
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="maincontainer">
+    <div class="root" style="margin-bottom: 4%;">
+        <div class="logo">
+            <span style="font-weight: bold;font-size: 28px;margin-bottom: 19px;">Sub-Category List</span>
+            <span style="width: 38%;display: flex;justify-content: flex-end;margin-right: 13px;"><a href="/subcategoryinterface"><i class="material-icons" style="color: #FFFFFF">add_box</i></a></span>
+        </div>
+
+    <table class="centered">
+        <thead>
+          <tr>
+              <th>Sub-Categoryid</th>
+              <th>Category Name</th>
+              <th>Sub-Category Name</th>
+              <th>Sub-Categoryicon</th>
+              <th>Edit/Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for row in result %}
+          <tr>
+            <td>{{row.subcategoryid}}</td>
+            <td>{{row.tc}}/[{{row.categoryid}}]</td>
+            <td>{{row.subcategoryname}}</td>
+            <td><img src="/static/inputicons/{{row.subcategoryicon}}" width="40" class="imgbtn" subcategoryid="{{row.subcategoryid}}" subcategoryicon="{{row.subcategoryicon}}" ></td>
+            <td><button class="btn waves-effect waves-light btn modal-trigger editdeletebtn" subcategoryid="{{row.subcategoryid}}" subcategoryname="{{row.subcategoryname}}" tc="{{row.tc}}" categoryid="{{row.categoryid}}" type="button" name="action" style="background: whitesmoke;box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);color: black" data-target="modal1" >Edit/Delete</button></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+</form>
+
+<!--Modal For Form Data-->
+ <div id="modal1" class="modal">
+    <div class="modal-content">
+     <input id="msubcategoryid" type="hidden" >
+     <div class="modal_maincontainer">
+    <div class="modal_root">
+            <div class="logo">
+                        <span><img src="/static/images/logo1.png" width="75" style="margin-right: 10px;"></span><span style="margin-top: -16px;font-weight: bold;font-size: 20px">Update Sub-Category</span>
+            </div>
+            <div class="row">
+                   <div class="input-field col s12">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="categoryname" name="categoryname">
+                        <option value="" disabled selected>Choose Category Name</option>
+                        </select>
+                        <label>Category Name</label>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="input-field col s12">
+                         <i class="material-icons prefix">add_shopping_cart</i>
+                        <input name="msubcategoryname" id="msubcategoryname" type="text" class="validate">
+                        <label for="msubcategoryname">SubCategory Name:</label>
+                    </div>
+            </div>
+            <div class="row">
+                     <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnedit" id="btnedit" type="submit">Edit
+                            <i class="material-icons right">edit</i>
+                        </button>
+                     </div>
+                    <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btndelete" id="btndelete" type="reset">Delete
+                        <i class="material-icons right">delete</i>
+                        </button>
+                    </div>
+            </div>
+    </div>
+</div>
+</div>
+    <div class="modal-footer" style="margin-top: -33px;">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat close">Close</a>
+    </div>
+</div>
+<!----------------------------------------->
+
+<!--Modal For Picture-->
+<div id="modal2" class="modal">
+    <div class="modal-content">
+     <input id="mpic_subcategoryid" type="hidden" >
+     <div class="modal_maincontainer">
+     <div class="modal_root" style="margin: -30px">
+               <div class="input-field col s12 logo">
+                        <span><img src="/static/images/logo1.png" width="75" style="margin-right: 10px;"></span><span style="margin-top: -16px;font-weight: bold;font-size: 20px">Update SubCategory-Image</span>
+               </div>
+               <div class="row" style="display: flex;justify-content: center;align-items: center;">
+                   <div class="col 12">
+                       <img src="" id="mpic" width="100px">
+                   </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="msubcategoryicon" id="msubcategoryicon" multiple>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path" type="text" placeholder="Upload one or more files">
+                                </div>
+                            </div>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s12 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnedit_pic" id="btnpic" type="submit">Edit
+                            <i class="material-icons right">edit</i>
+                        </button>
+                     </div>
+               </div>
+    </div>
+</div>
+</div>
+<div class="modal-footer" style="margin-top: 2px;">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat pic_close">Close</a>
+    </div>
+</div>
+<!----------------------------------------->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  $('#modal1').modal()
+  $('#modal2').modal()
+  $('#msubcategoryname').val(' ')
+// Form Data Manupilation.............
+ $('.editdeletebtn').click(function (){
+       $('#modal1').modal('open')
+       $('#categoryname').val($(this).attr('categoryid'))
+       $('#msubcategoryid').val($(this).attr('subcategoryid'))
+       $('#msubcategoryname').val($(this).attr('subcategoryname'))
+       $('select').formSelect();
+ })
+
+    $('.btnedit').click(function (){
+        // Sweet Alert...................
+        swal({
+        title: "Are you sure?",
+        text: "Do You Want to Edit",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Data Successfully Edited !!", {
+            icon: "success",
+            });
+            $.getJSON('/updatesubcategory',{"scid":$('#msubcategoryid').val(),"cn":$('#categoryname').val(),"scn":$('#msubcategoryname').val()},function (data){
+            })
+            }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+        //............................
+    })
+
+    $('.btndelete').click(function (){
+        swal("Are you sure you want to do this?", {
+        buttons: ["Cancel", "Delete"],
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Data Successfully Edited !!", {
+            icon: "success",
+            });
+              $.getJSON('/deletesubcategory',{"scid":$('#msubcategoryid').val()},function (data){
+            })
+            }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+    })
+
+    $('.close').click(function (){
+    $('#modal1').modal('close')
+    window.location.reload('http://localhost:8000/displayallsubcategory/')
+    // location.href='http://localhost:8000/displayallsubcategory/'
+    })
+//........................................
+
+// Icon Manupilation......................
+$('.imgbtn').click(function (){
+    $('#modal2').modal('open')
+    $('#mpic_subcategoryid').val($(this).attr('subcategoryid'))
+    $('#mpic').attr('src',`/static/inputicons/${$(this).attr('subcategoryicon')}`)
+})
+$('#msubcategoryicon').change(function (event){
+    $('#mpic').attr('src',URL.createObjectURL(event.target.files[0]))
+})
+$('.btnedit_pic').click(function (){
+    swal({
+        title: "Are you sure?",
+        text: "Do You Want to Edit This Picture",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willedit) => {
+            if (willedit) {
+            swal("Poof! Your Picture Successfully Edited !!", {
+            icon: "success",
+            });
+
+        // Ajax Use For Image Update............
+        var formData = new FormData();
+        formData.append("subcategoryid",$('#mpic_subcategoryid').val())
+        var files = $('#msubcategoryicon')[0].files;
+        // Check file selected or not
+        if(files.length > 0 ){
+           formData.append('subcategoryicon',files[0]);
+
+           $.ajax({
+              url: '/editsubcategorypicture',
+              type: 'post',
+              headers:{"X-CSRFToken": '{{ csrf_token }}'},
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(response){
+                 if(response!=0){
+                      if (response.result) {
+                        console.log('File Edited Successfully')
+                      } else {
+                          alert('Fail To Edit the Picture')
+                      }
+                 }else{
+                    alert('file not uploaded');
+                 }
+              },
+           });
+        }else{
+           alert("Please select a file.");
+        }
+        //...................
+        }else {
+            swal("OOPS You Cancel it!");
+        }
+        });
+
+})
+ $('.pic_close').click(function (){
+    $('#modal2').modal('close')
+    window.location.reload('http://localhost:8000/displayallsubcategory/')
+    // location.href='http://localhost:8000/displayallsubcategory/'
+    })
+//........................................
+
+// Side NavBar................
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+// ............................
+
+    $('.dropdown-trigger').dropdown();
+</script>
+</body>
+</html>
+

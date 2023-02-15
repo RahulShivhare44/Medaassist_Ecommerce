@@ -1,0 +1,295 @@
+<html lang="en">
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/static/js/userinterface.js"></script>
+  <title>SignIn/SignUp</title>
+
+</head>
+<header>
+    {% include 'AppBar.html' %}
+</header>
+<body style="background-color: rgba(222,221,221,0.3);">
+<input type="hidden" value="" id="gotp" >
+<div class="row" style="margin-top: 50px;background-color: #FFFFFF;width: 60%;height: auto;padding: 15px;margin-bottom: 50px">
+
+        <div class="col s6">
+           <img src="/static/images/sigin.png" width="100%" >
+        </div>
+
+        <div class="col s6" id="signin">
+
+            <div style="font-size: 30px;font-weight: 600">
+               Sign In / Sign Up
+           </div>
+
+            <div style="font-size: 11px;color: rgba(21,27,57,.6);">Sign up or Sign in to access your orders, special offers, health tips and more!</div>
+
+            <div class="row" style="margin-top: 30px">
+                <div class="input-field col s12">
+                   <i class="material-icons prefix">call</i>
+                    <input placeholder="Enter your mobile no" id="mobileno" required type="number" class="validate">
+                    <label for="mobileno" style="color: #0e5e94;font-weight: 500">PHONE NUMBER</label>
+                </div>
+            </div>
+           <div id="signotp">
+             <div class="row" style="margin-top: 10px;">
+                <div style="color: gray;margin-left: 14px;">We have sent 4 digit OTP</div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="1" name="digit1" type="password" class="validate">
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="2" name="digit2" type="password" class="validate">
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="3" name="digit3" type="password" class="validate">
+
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="4" name="digit4" type="password" class="validate">
+
+                    </div>
+                </div>
+             </div>
+             <div class="row">
+                <div class="col s12">
+                     <button class="btn" type="button" id="signinverify" style="width: 100%;background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);" name="action">SIGN IN
+                    </button>
+                </div>
+            </div>
+          </div>
+
+          <div class="row btnotp">
+                <div class="col s12" style="display: flex;justify-content: flex-end">
+                     <button class="btn" type="button" id="btnotp" style="width: 89%;background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);" name="action">USE OTP
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+          </div>
+
+        </div>
+
+        <div class="col s6" id="createaccount" style="padding: 5px;">
+            <div style="font-size: 30px;font-weight: 600">
+               Create&nbsp;Account
+           </div>
+
+           <div class="row" style="margin-top: 20px">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input placeholder="FULL NAME" id="name" type="text" class="validate">
+                    <label for="name" style="color: #0e5e94;font-weight: 500">NAME</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input placeholder="EMAIL ID" id="email" type="email" class="validate">
+                    <label for="email" style="color: #0e5e94;font-weight: 500">EMAIL</label>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 30px">
+                <div class="input-field col s8">
+                    <i class="material-icons prefix">call</i>
+                    <input placeholder="Enter your mobile no" id="mobileno1" required type="number" class="validate">
+                    <label for="mobileno" style="color: #0e5e94;font-weight: 500">PHONE NUMBER</label>
+                </div>
+                <div class="col s4" style="margin-top: 17px;">
+                    <button class="btn" type="button" id="sentotp" onclick="sentotp()" style="background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);" name="action">SENT OTP
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="createotp">
+              <div class="row" style="margin-top: 10px;" >
+                <div style="color: gray;margin-left: 14px;">We have sent 4 digit OTP on +91-<span id="verifyno"></span></div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="11" name="digit11" type="password" class="validate">
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="22" name="digit22" type="password" class="validate">
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="33" name="digit33" type="password" class="validate">
+
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field">
+                        <input width="10px" style="text-align: center;" id="44" name="digit44" type="password" class="validate">
+
+                    </div>
+                </div>
+             </div>
+             <div class="row">
+                <div class="col s12">
+                     <button class="btn" type="button" id="verify" style="width: 100%;background: linear-gradient(90deg, rgba(23,1,1,0.8634804263502276) 6%, rgba(23,1,1,0.8494748241093313) 8%, rgba(26,109,21,0.9755252442773985) 28%, rgba(21,139,76,0.9110994739692753) 66%, rgba(4,95,27,0.8326681014202556) 85%);" name="action">VERIFY
+                    </button>
+                </div>
+             </div>
+             <div class="row">
+                 <div class="col s12">
+                     <div class="msg"></div>
+                 </div>
+             </div>
+           </div>
+
+        </div>
+
+</div>
+
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    // Sign Otp Manupilation.....
+    $("#1").keyup(function(){
+        var text_lenght = $('#1').val().length;
+        if (text_lenght == 1){
+            $('#2').focus();
+        }
+    });
+
+    $("#2").keyup(function(){
+        var text_lenght = $('#2').val().length;
+        if (text_lenght == 1) {
+            $('#3').focus();
+        }
+    });
+
+    $("#3").keyup(function(){
+        var text_lenght = $('#3').val().length;
+        if (text_lenght == 1) {
+         $('#4').focus();
+        }
+    });
+    //...........................................
+    // Create Otp Manupialtion...................
+    $("#11").keyup(function(){
+        var text_lenght = $('#11').val().length;
+        if (text_lenght == 1){
+            $('#22').focus();
+        }
+    });
+
+    $("#22").keyup(function(){
+        var text_lenght = $('#22').val().length;
+        if (text_lenght == 1) {
+            $('#33').focus();
+        }
+    });
+
+    $("#33").keyup(function(){
+        var text_lenght = $('#33').val().length;
+        if (text_lenght == 1) {
+         $('#44').focus();
+        }
+    });
+    //...................................................
+  });
+
+  // Sign In..............................................
+  $('#createaccount').hide()
+  $('#signotp').hide()
+  $('#btnotp').click(function (){
+      $.getJSON('/checksignin',{'mobileno':$('#mobileno').val()},function (data){
+          if(data.result){
+              alert(data.otp)
+              $('#gotp').val(data.otp)
+              $('#signotp').show()
+              $('#btnotp').hide()
+          }
+          else{
+              if($('#mobileno').val()!=''){
+              $('#createotp').hide()
+              $('#signin').hide()
+              $('#createaccount').show()}
+          }
+      })
+  })
+
+  $('#signinverify').click(function () {
+      var digitotp = $('#1').val() + $('#2').val() + $('#3').val() + $('#4').val()
+      // alert(digitotp)
+      if ($('#gotp').val()==digitotp) {
+          swal("Sign In!", "Successfully", "success");
+
+          sleep()
+      }
+      else {
+          swal("Fail to Sign In!");
+      }
+  })
+ //..............................................................
+
+// Sign Up Manupialtion..........................................
+$('#createotp').hide()
+function sentotp()
+{   if($('#mobileno1').val()!=''){
+
+        $('#verifyno').html($('#mobileno1').val())
+        $('#createotp').show()
+        var k = 1000 + parseInt(Math.random() * 8999)
+        $('#gotp').val(k)
+        alert(k)
+
+        // $.getJSON("",function (response){
+        //
+        // })
+        //
+
+        $('#sentotp').html('RESEND OTP')
+    }
+}
+
+$('#verify').click(function (){
+    var digitotp=$('#11').val()+$('#22').val()+$('#33').val()+$('#44').val()
+    if($('#gotp').val()==digitotp){
+        $.getJSON('/userregistration',{'name':$('#name').val(),'email':$('#email').val(),'mobileno':$('#mobileno1').val()},function (data){
+            if(data.result){
+                swal("Sign Up!","Successfully", "success");
+                sleep()
+            }
+            else {
+                swal("Invalid OTP!");
+            }
+        })
+    }
+    else{
+        swal("PLEASE INPUT a CORRECT OTP!");
+    }
+})
+//...............................................
+
+function callurl(){
+    location.href="http://localhost:8000/my_shopping_cart/"
+}
+function sleep(){
+    setInterval(callurl,1000)
+}
+
+</script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</html>

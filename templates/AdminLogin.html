@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedAsist</title>
+  </head>
+
+  <body class="grey lighten-4">
+    <nav class="blue darken-2" style="height: 72px !important;background:linear-gradient(90deg, rgba(23,1,1,0.9167017148656338) 0%, rgba(5,222,92,1) 9%, rgba(14,60,22,0.9251050762101716) 96%, rgba(81,95,4,1) 100%) !important;">
+      <div class="container">
+        <div class="nav-wrapper">
+          <span><img src="/static/images/logo1.png" width="55" style="margin-right: 10px;margin-top: 5px;"></span>
+          <a href="#" class="brand-logo" style="color: #F1F1F1">MedAssist</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section section-login" style="margin-top: 115px">
+      <div class="container">
+        <div class="row" >
+          <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card-panel login white darken-2 dark-text center">
+              <h5>Administarator Login</h5>
+              <form action="/dashboard" method="post"> {% csrf_token %}
+                <div class="input-field">
+                  <i class="material-icons prefix">email</i>
+                  <input type="email" name="email" id="email" />
+                  <label class="dark-text" for="email">Email</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">lock</i>
+                  <input type="password" name="password" id="password" />
+                  <label class="dark-text" for="password">Password</label>
+                </div>
+                <input
+                  type="submit"
+                  value="Login"
+                  class="btn btn-large btn-extended grey lighten-4 black-text"
+                />
+
+                 <div style="margin-top: 10px;font-size: 28px; ">
+                  {{ msg }}
+              </div>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section blue darken-2 white-text center" style="margin-top:113px;background:linear-gradient(90deg, rgba(23,1,1,0.9167017148656338) 0%, rgba(5,222,92,1) 9%, rgba(14,60,22,0.9251050762101716) 96%, rgba(81,95,4,1) 100%) !important;">
+      <p>MedAsist Panel Copyright &copy; 2022</p>
+    </footer>
+
+    <!-- Preloader -->
+    <div class="loader preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--Import jQuery before materialize.js-->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+    ></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      // Hide Sections
+      $('.section').hide();
+
+      setTimeout(function () {
+        $(document).ready(function () {
+          // Show Sections
+          $('.section').fadeIn();
+
+          // Hide Preloader
+          $('.loader').fadeOut();
+        });
+      }, 1000);
+    </script>
+  </body>
+</html>
+
+

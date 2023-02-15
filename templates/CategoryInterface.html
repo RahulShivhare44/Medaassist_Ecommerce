@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="/static/css/category.css">
+  <title>Category Panel</title>
+ </head>
+<body>
+{% include 'AdminAppbar.html' %}
+<form action="/submitcategory" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="maincontainer">
+    <div class="root">
+
+               <div class="logo">
+                       <span style="font-weight: bold;font-size:28px;margin-bottom: 19px;">Category Interface</span>
+                       <span style="width: 27%;display: flex;justify-content: flex-end;margin-right: 13px;"><a href="/displayallcategory"><i class="material-icons" style="color: #FFFFFF">toc</i></a></span>
+                </div>
+
+               <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <input name="categoryname" id="categoryname" type="text" class="validate">
+                        <label for="categoryname">Category Name:</label>
+                    </div>
+                </div>
+               <div class="row">
+                    <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="categoryicon" id="categoryicon" multiple>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text"  placeholder="Upload one or more files">
+                                </div>
+                            </div>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button" type="submit">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+               </div>
+               <div class="col s6 btnstyle btnmiddle">
+                   <button class="btn waves-effect waves-light button" type="reset">Reset
+                   <i class="material-icons right">clear</i>
+                   </button>
+               </div>
+               </div>
+               <div class="row">
+                <div class="col s12 btnmiddle">
+                    {{msg}}
+                </div>
+            </div>
+
+    </div>
+</div>
+
+</form>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+
+// Side NavBar................
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+// ............................
+
+$('.dropdown-trigger').dropdown();
+</script>
+</html>
+

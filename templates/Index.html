@@ -1,0 +1,216 @@
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/static/js/userinterface.js"></script>
+  <script>
+
+  $(document).ready(function(){
+    $('.carousel').carousel();
+
+    setInterval(function() {
+            $('.carousel0').carousel('next');
+    }, 3000);
+
+    setInterval(function() {
+            $('.carousel1').carousel('next');
+    }, 2000);
+
+    $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true,
+    });
+
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel-slider');
+    var instances = M.Carousel.init(elems);
+  });
+
+  // Browser back Button Manupilation.........
+  window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted ||
+        ( typeof window.performance != "undefined" &&
+         window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+        // Handle page restore.
+        window.location.reload();
+        }
+    });
+  //.........................................
+  </script>
+  <title>Med_Assist</title>
+</head>
+
+<header>
+    {% include 'AppBar.html' %}
+</header>
+
+<body>
+
+<!-- Carousel -->
+<div style="margin-top: 2px">
+   <div class="carousel carousel-slider carousel0">
+    <a class="carousel-item" href="#"><img src="/static/images/c1.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c2.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c3.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c6.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c5.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c7.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c8.jpg"></a>
+    <a class="carousel-item" href="#"><img src="/static/images/c9.jpg"></a>
+  </div>
+</div>
+<!--------------------->
+
+<!-- Sub-Category -->
+<div id="subcategorylist" style="display: flex;flex-direction: row;justify-content: space-between;margin-bottom: 10px;margin-top: 10px;flex-wrap: wrap;">
+
+</div>
+<!--------------------->
+
+<!--Sub Carousel-->
+<div class="carousel carousel-slider carousel1">
+    <div class="carousel-item row">
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc1.jpg" width="100%"  alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc2.jpg" width="100%" alt="" >
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1 ">
+                <img src="/static/images/sc3.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc4.jpg" width="100%" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-item row">
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc5.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc6.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc7.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc8.jpg" width="100%" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="carousel-item row">
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc9.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc10.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc11.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc12.jpg" width="100%" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="carousel-item row">
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc13.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc14.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc15.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc16.jpg" width="100%" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="carousel-item row">
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc17.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc18.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc19.jpg" width="100%" alt="">
+            </div>
+        </div>
+        <div class="col s3">
+            <div class="card blue-grey darken-1">
+                <img src="/static/images/sc20.jpg" width="100%" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>
+<!----------------------->
+
+<!-- Product -->
+<div id="productlist" style="padding: 5px;display: flex;flex-direction: row;justify-content: space-around;flex-wrap: wrap;">
+
+</div>
+<!--------------------->
+
+{% include 'DetailsAboutMedAssist.html' %}
+
+</body>
+{% include 'Footer.html' %}
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</html>
+

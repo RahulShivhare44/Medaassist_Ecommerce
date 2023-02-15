@@ -1,0 +1,34 @@
+body{
+    background: #f6f6f7;
+}
+#maincontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+
+}
+#box{
+    width: 70%;
+    height: 70%;
+    padding: 5px;
+    background: #f6f6f7;
+}
+#orderreview{
+    width: 100%;
+    height: 20%;
+    background: #078a45;
+    font-family: LatoBold;
+    text-transform: capitalize;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+#payment{
+    margin-top: 15px;
+    background: white;
+    width: 100%;
+    height: 80%;
+}

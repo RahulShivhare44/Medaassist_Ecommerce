@@ -1,0 +1,64 @@
+<style>
+    .dropdown1 {
+        top: 65% !important;
+        height: auto !important;
+        width: 16% !important;
+        left: 75% !important;
+    }
+    .dropdown2{
+        top: 65% !important;
+        height: auto !important;
+        width: 10% !important;
+        left: 69.5% !important;
+    }
+
+</style>
+
+<nav style="height: 64px !important;">
+    <div class="nav-wrapper appbar" style="background:linear-gradient(90deg, rgba(23,1,1,0.9167017148656338) 0%, rgba(5,222,92,1) 9%, rgba(14,60,22,0.9251050762101716) 96%, rgba(81,95,4,1) 100%) !important;">
+      <span><img src="/static/images/logo1.png" width="50" style="margin-top: 5px;margin-left: 30px"></span>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="side-nav" class="button-collapse show-on-large right" style="margin-right: 15px;margin-left: 10px"><div style="align-items: center;justify-content: center;display: flex;flex-direction: column;"><img src="/static/adminimage/{{records.picture}}" class="rounded-circle" height="25" style="margin-top: 2px;width:47px;border-radius:22px;height:42px;"><span style="margin-top: -22px;">{{ records.adminname }}</span></div></a>
+      <ul class="right hide-on-med-and-down mainmenu">
+        <li class="active"><a href="/home">HOME</a></li>
+            <li><a class='dropdown-trigger' href='#' data-target='dropdown2'>INPUT PANEL</a></li>
+            <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>DISPLAYALL PANEL</a></li>
+            <li><a href="/logoutadmin">LOGOUT</a></li>
+      </ul>
+    </div>
+</nav>
+<!-- Dropdown Structure -->
+<ul id='dropdown1' class='dropdown-content dropdown1'>
+    <li><a href="/displayallcategory">DISPLAYALL CATEGORIES</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/displayallsubcategory">DISPLAYALL SUB-CATEGORIES</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/displayallbrand">DISPLAYALL BRAND</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/displayallproduct">DISPLAYALL PRODUCT</a></li>
+</ul>
+<!------------------------>
+<!-- Dropdown Structure -->
+<ul id='dropdown2' class='dropdown-content dropdown2' >
+    <li><a href="/categoryinterface">CATEGORY</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/subcategoryinterface">SUB-CATEGORY</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/brandinterface">BRAND</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/productinterface">PRODUCT</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/multipleproductimages">PRODUCT Image</a></li>
+</ul>
+<!------------------------>
+<!-- Side NavBar -->
+<ul class="sidenav" id="mobile-demo">
+    <li class="active"><a href="/home">HOME</a></li>
+    <li><a href="/categoryinterface">CATEGORY</a></li>
+    <li><a href="/subcategoryinterface">SUB-CATEGORY</a></li>
+    <li><a href="/brandinterface">BRAND</a></li>
+    <li><a href="/productinterface">PRODUCT</a></li>
+    <li><a href="/logoutadmin">LOGOUT</a></li>
+</ul>
+<!------------------------>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/Product.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Product Multiple Images Panel</title>
+    <script src="/static/js/FillCategories.js"></script>
+    <script>
+         $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+</head>
+
+<body>
+{% include 'AdminAppbar.html' %}
+
+<form action="/submitmultiproductimages" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="maincontainer">
+    <div class="root">
+               <div class="logo">
+                       <span style="font-weight: bold;font-size: 28px;margin-bottom: 19px;text-align: center;width: 100%">Product Multiple Images</span>
+                </div>
+               <div class="row">
+                   <div class="input-field col s6">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="categoryname" name="categoryid">
+                        <option value="" disabled selected>Choose Category</option>
+                        </select>
+                        <label>Category Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="subcategoryname" name="subcategoryid">
+                        <option value="" disabled selected>Choose SubCategory</option>
+                        </select>
+                        <label>SubCategory Name</label>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="brandname" name="brandid">
+                        <option value="" disabled selected>Choose Brand</option>
+                        </select>
+                        <label>Brand Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                         <i class="material-icons prefix">add_shopping_cart</i>
+                        <select id="productname" name="productid">
+                        <option value="" disabled selected>Choose Product</option>
+                        </select>
+                        <label>product Name</label>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="producticon" id="producticon" multiple>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path" type="text" placeholder="Upload one or more files">
+                                </div>
+                            </div>
+                    </div>
+               </div>
+               <div class="row">
+                     <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button btnsubmit"  style="width:80%;border-radius: 20px" type="submit">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                    <div class="col s6 btnstyle btnmiddle">
+                        <button class="btn waves-effect waves-light button" style="width:80%;border-radius: 20px" type="reset">Reset
+                            <i class="material-icons right">clear_all</i>
+                        </button>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col s12 btnmiddle">
+                       {{msg}}
+                   </div>
+               </div>
+
+    </div>
+</div>
+</form>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+
+// Side NavBar................
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+// ............................
+
+$('.dropdown-trigger').dropdown();
+</script>
+</html>
+
+

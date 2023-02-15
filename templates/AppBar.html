@@ -1,0 +1,123 @@
+<html>
+
+<head>
+  <script>
+    $(document).ready(function(){
+
+    });
+  </script>
+  <style>
+      #dropdown1{
+          top: 4px !important;
+          left: 86% !important;
+      }
+      .appbar{
+          background:linear-gradient(90deg, rgba(23,1,1,0.9167017148656338) 0%, rgba(5,222,92,1) 9%, rgba(14,60,22,0.9251050762101716) 96%, rgba(81,95,4,1) 100%) !important;
+      }
+  </style>
+  <link rel="stylesheet" href="/static/css/scrollbarcss.css">
+</head>
+
+<body>
+<input type="hidden" value="{{userdata}}" id="userdata">
+<!-- First Navbar -->
+<nav style="height: 64px !important;">
+    <div class="nav-wrapper appbar">
+      <a href="/userinterface"><span><img src="/static/images/logo1.png" width="50" style="margin-top: 5px;margin-left: 30px"></span>
+<!--      <a class="brand-logo" style="font-size: 20px;margin-left: 13px;font-family: Trebuchet;font-weight: 600"><b><i>Med-Assist</i></b></a>-->
+      </a>
+
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="/my_shopping_cart">
+          <span class="right"style="margin-right: 39px;margin-top: -10px;width: 40px;margin-left: -2px">
+            <span id="shoppingcart" style="background-color: red;border-radius: 30px;padding-right: 5px;padding-left: 5px;padding-bottom: 0px;padding-top: 0px;">0</span>
+          </span>
+          <span class="right">
+            <i class="material-icons">shopping_cart</i>
+          </span>
+      </a>
+      <div class="right" style="margin-right: 48px"><a href="/signinandsignup"><div id="signinandsignup">Sign&nbsp;in/Sign&nbsp;up</div></a><div id="login" class='dropdown-trigger' data-target='dropdown1' style="display: flex;flex-direction: column;padding-top: 4px;margin-left: 58px;"><span style="text-align: center;margin-bottom: -21px;margin-left: 4px;"><img src="/static/images/login.png" style="width: 30px;height: 30px;"></span><span style="margin-bottom: -21px;font-weight: 600;text-align: center;text-decoration: underline">{{userdata.username}}</span></div></div>
+
+      <div class="right" style="width:49vw;height: 8.5vh;display: flex;align-items: center;justify-content: flex-start;">
+        <div class="input-field" style="height: 6vh;width: 32vw;background:forestgreen;text-align:center;border-radius: 12px;">
+          <input type="search" id="autocomplete-input" class="autocomplete">
+          <label class="label-icon" for="autocomplete-input"><i class="material-icons" style="margin-top: -20px;margin-left: 10px;color: #00000038">search</i></label>
+          <i class="material-icons" style="margin-top: -9px;">close</i>
+        </div>
+      </div>
+
+    </div>
+</nav>
+<!-------------------->
+<!--  Side Navbar -->
+<ul class="sidenav mainmenu" id="mobile-demo">
+
+</ul>
+<!--------------------->
+<!-- Second Navbar -->
+<nav style="height: 62px !important;color: black !important;">
+    <div class="nav-wrapper" style="background-color: #F1F1F1 !important;">
+      <ul class="mainmenu" style="display: flex;justify-content: center;align-items: center;">
+
+      </ul>
+    </div>
+</nav>
+<!--------------------------->
+<!-- Menu For Login Symbol -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><div style="display: flex;flex-direction: column;justify-content: center;align-items: center;"><span style="margin-bottom: -5px;"><img src="/static/images/login.png" style="width: 30px;height: 30px;"></span><span style="font-weight: 600;margin-right: 4px;text-decoration: underline">{{userdata.username}}</span></div></li>
+    <li style="text-align: center"><a href="/logout">Logout</a></li>
+  </ul>
+<!---------------------------->
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+
+$(document).ready(function(){
+// Navbar.................................
+    $('.sidenav').sidenav();
+    $('.dropdown-trigger').dropdown();
+//........................................
+// SignIn And SignUp Manupilation............
+    if($('#userdata').val()=='' || $('#userdata').val()=='None'){
+        $('#login').hide()
+        $('#signinandsignup').show()
+    }
+    else{
+        $('#login').show()
+        $('#signinandsignup').hide()
+    }
+//...........................................
+// Search Manupilation.......................
+    var newdata={}
+    var products
+    $.getJSON('/fetch_all_products',function (data){
+        products=data.result
+        data.result.map((item)=>{
+            newdata[item.productname]=`/static/inputicons/${item.producticon}`
+        })
+    })
+
+    $('input.autocomplete').autocomplete({
+      data: newdata
+    });
+
+    $('input.autocomplete').change(function (){
+
+     // alert($('input.autocomplete').val())
+     // alert(JSON.stringify(products))
+     var data=products.filter(item=>item.productname==$('input.autocomplete').val())[0]
+     data=JSON.stringify(data)
+     // alert(data)
+     location.href=`http://localhost:8000/buy_product?product=${data}`
+    })
+//...........................................
+});
+
+</script>
+
+</html>
+
+
+
